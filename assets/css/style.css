@@ -4,3 +4,29 @@ body {
     font-family: sans-serif;
     font-size: 12px;
 }
+
+.main-сontainer {
+    width: 60%;
+    height: 200px;
+    margin: 2% auto;
+}
+.title-start {
+    background: darkred;
+    border: 5px solid black;
+    box-shadow: 5px 5px 8px black;
+}
+
+.label-monopoly {
+    margin: 15px 0px;
+    font-family: Monopoly;
+    font-size: 80px;
+    line-height: 95px;
+    text-align: center;
+    color: white;
+    text-shadow: 2px 2px black;
+}
+
+#start {
+    margin:15px auto;
+    box-shadow: 5px 5px 8px black;
+}
