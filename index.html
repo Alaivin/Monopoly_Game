@@ -13,43 +13,78 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
 </head>
 <body>
+
+<!-- First block with label -->
+
+
 <div class="main-container text-center">
-    <div class="title-start">
-        <h1 class="label-monopoly">МОНОПОЛИЯ</h1>
-    </div>
-    <form>
-        <button class="btn btn-danger" id="start">Перейти к правилам!</button>
-    </form>
+  <div class="title-start">
+    <h1 class="label-monopoly">МОНОПОЛИЯ</h1>
+  </div>
+  <form>
+    <button class="btn btn-danger" id="start">Перейти к правилам!</button>
+  </form>
 </div>
+
+<!-- Second block with rules -->
+
 <div class="container-instructions screen-instructions text-center">
-    <h2 class="screen-instructions">Правила</h2>
+  <h2 class="screen-instructions">Правила</h2>
+  <form>
+    <button class="btn btn-danger screen-instructions" id="goGame" data-gamestart="no">Начать игру!</button>
+  </form>
+  <div class="instructions screen-instructions">
+    <h5 class="screen-instructions">Цель</h5>
+    <p>Главная цель игры - оставить соперника ни с чем. Каждый игрок начинает игру с 1000 долларов. Когда у одного игрока заканчиваются деньги, игра заканчивается, а другой игрок выигрывает.</p>
+    <h5 class="screen-instructions">Игра</h5>
+    <ul>
+      <li>Каждый игрок нажимает на кубик, чтобы бросить за первый ход. Игрок с наибольшим номером идет первым. Каждый игрок начинает в углу с надписью «GO».</li>
+      <li>Первый игрок бросает кубик, а его токен перемещается на количество ходов, указанное кубиком.</li>
+      <li>Токены остаются на занятых местах и ​​продолжают двигаться с этой точки на следующем ходу игрока. Два или более токена могут находиться в одном и том же месте одновременно.</li> 
+      <li>В зависимости от места, на которое встал ваш токен, вы можете купить недвижимость или заплатить арендную плату, взять карту шанса или потерять ход в зависимости от значения карты.</li>
+    </ul>
+    <h5 class="screen-instructions">Недвижимость и аренда</h5>
+    <ul>
+      <li>Всякий раз, когда вы оказываетесь на клетке собственности, не принадлежащей вам, вы можете купить эту собственность в Банке по ее печатной цене.</li>
+      <li>Если вы решите купить собственность, другой игрок будет платить вам арендную плату каждый раз, когда он приземлится на этом месте, исходя из того, сколько стоила земля, когда вы ее купили. Арендная плата составляет половину от первоначальной цены недвижимости.</li>
+    </ul>
+    <h5 class="screen-instructions">Специальные карты</h5>
+    <ul>
+      <li class="hide-num"><span class="special-cards screen-instructions">GO</span>Каждый раз, когда токен игрока приземляется или проходит через GO, игрок собирает 200$.</li>
+      <li class="hide-num"><span class="special-cards screen-instructions">One Way Street</span>Игрок, который приземляется в этом месте, пошел по неправильному пути вниз по улице с односторонним движением и впоследствии должен заплатить штраф.</li>
+      <li class="hide-num"><span class="special-cards screen-instructions">Fog</span>Игрок затерялся в тумане и пропускает ход.</li>
+      <li class="hide-num"><span class="special-cards screen-instructions">Jail</span>Игрок должен заплатить штраф, чтобы выйти.</li>
+      <li class="hide-num"><span class="special-cards screen-instructions">Chance</span>Игрок получает карту Шанс. Последствия могут быть положительными или отрицательными в зависимости от удачи игрока!</li>
+    </ul>
+  </div>
+</div>
+
+ <!-- Third block with players -->
+
+<div class="players-container players-screen text-center">
+  <div class="buttonDiv">
     <form>
-        <button class="btn btn-danger screen-instructions" id="goGame" data-gamestart="no">Начать игру!</button>
+      <div class="players-box players-screen">
+        <h2 class="players-title players-screen">Игрок 1</h2>
+        <p>Ваше имя</p>
+        <input type="text" id="playerOne">
+        <p>Ваш токен:</p>
+        <img src="assets/images/tokens/cat1.png" class="playerOneToken">
+        <p>Нажмимте, чтобы бросить кости. Игрок, выбросивший большее число ходит первым.</p>
+        <p><img height="65" id="playerOneDie" src="assets/images/dice/BeforeRolled.png" alt="Бросай кости!"></p>
+      </div>
+      <div class="players-box players-screen">
+        <h2 class="players-screen players-title">Игрок 2</h2>
+        <p>Ваше имя</p>
+        <input type="text" id="playerTwo">
+        <p>Ваш токен:</p>
+        <img src="assets/images/tokens/cat2.png" class="playerTwoToken">
+        <p>Нажмимте, чтобы бросить кости. Игрок, выбросивший большее число ходит первым.</p>
+        <p><img height="65" id="playerTwoDie" src="assets/images/dice/BeforeRolled.png" alt="Бросай кости!"></p>
+      </div>
     </form>
-    <div class="instructions screen-instructions">
-        <h5 class="screen-instructions">Цель</h5>
-        <p>Главная цель игры - оставить соперника ни с чем. Каждый игрок начинает игру с 1000 долларов. Когда у одного игрока заканчиваются деньги, игра заканчивается, а другой игрок выигрывает.</p>
-        <h5 class="screen-instructions">Игра</h5>
-        <ul>
-            <li>Каждый игрок нажимает на кубик, чтобы бросить за первый ход. Игрок с наибольшим номером идет первым. Каждый игрок начинает в углу с надписью «GO».</li>
-            <li>Первый игрок бросает кубик, а его токен перемещается на количество ходов, указанное кубиком.</li>
-            <li>Токены остаются на занятых местах и ​​продолжают двигаться с этой точки на следующем ходу игрока. Два или более токена могут находиться в одном и том же месте одновременно.</li> 
-            <li>В зависимости от места, на которое встал ваш токен, вы можете купить недвижимость или заплатить арендную плату, взять карту шанса или потерять ход в зависимости от значения карты.</li>
-        </ul>
-        <h5 class="screen-instructions">Недвижимость и аренда</h5>
-        <ul>
-            <li>Всякий раз, когда вы оказываетесь на клетке собственности, не принадлежащей вам, вы можете купить эту собственность в Банке по ее печатной цене.</li>
-            <li>Если вы решите купить собственность, другой игрок будет платить вам арендную плату каждый раз, когда он приземлится на этом месте, исходя из того, сколько стоила земля, когда вы ее купили. Арендная плата составляет половину от первоначальной цены недвижимости.</li>
-        </ul>
-        <h5 class="screen-instructions">Специальные карты</h5>
-        <ul>
-            <li class="hide-num"><span class="special-cards screen-instructions">GO</span>Каждый раз, когда токен игрока приземляется или проходит через GO, игрок собирает 200$.</li>
-            <li class="hide-num"><span class="special-cards screen-instructions">One Way Street</span>Игрок, который приземляется в этом месте, пошел по неправильному пути вниз по улице с односторонним движением и впоследствии должен заплатить штраф.</li>
-            <li class="hide-num"><span class="special-cards screen-instructions">Fog</span>Игрок затерялся в тумане и пропускает ход.</li>
-            <li class="hide-num"><span class="special-cards screen-instructions">Jail</span>Игрок должен заплатить штраф, чтобы выйти.</li>
-            <li class="hide-num"><span class="special-cards screen-instructions">Chance</span>Игрок получает карту Шанс. Последствия могут быть положительными или отрицательными в зависимости от удачи игрока!</li>
-        </ul>
-    </div>
+    <button class="btn btn-danger player-button" id="submitInfo">Начать!</button> 
+  </div>
 </div>
 <script src="./assets/scripts/index.js"></script>
 </body>
