@@ -16,7 +16,7 @@ body {
     box-shadow: 5px 5px 8px black;
 }
 
-.label-monopoly {
+.label-monopoly, h2.screen-instructions {
     margin: 15px 0px;
     font-family: Monopoly;
     font-size: 80px;
@@ -29,4 +29,45 @@ body {
 #start {
     margin:15px auto;
     box-shadow: 5px 5px 8px black;
+}
+
+.container-instructions {
+    background: darkred;
+    opacity: 0.95;
+    border: 5px solid black;
+    box-shadow: 5px 5px 8px black;
+    color: white;
+    text-shadow: 1px 1px black;
+    line-height: 18px;
+    width: 60%;
+    height: 600px;
+    margin: 1% auto;
+    display: none;
+}
+.instructions {   
+    width: 100%;
+    height: 400px;
+    padding: 0px 100px;
+    overflow: auto;
+}
+button.screen-instructions {
+    margin: 0px 0px 25px 0px;
+    box-shadow: 5px 5px 8px black;
+}
+
+.container-instructions li {
+    text-align: left;
+    list-style-type: square;
+}
+.hide-num {
+    list-style-type: none;
+}
+.special-cards, h5.screen-instructions {
+    font-size: 20px;
+    line-height: 35px;
+    font-family: Monopoly;
+    color: black;
+    font-weight: bolder;
+    text-shadow: 0.5px 0.5px darkslategrey;
+    margin-right: 5px;
 }
