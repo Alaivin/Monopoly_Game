@@ -16,7 +16,7 @@ body {
     box-shadow: 5px 5px 8px black;
 }
 
-.label-monopoly, h2.screen-instructions {
+.labelMonopoly, h2.screen-instructions, h2.players-screen, h2.endGameScreen, h2.modalScreen {
     margin: 15px 0px;
     font-family: Monopoly;
     font-size: 80px;
@@ -31,7 +31,7 @@ body {
     box-shadow: 5px 5px 8px black;
 }
 
-.container-instructions {
+.container-instructions, .containerEndGame {
     background: darkred;
     opacity: 0.95;
     border: 5px solid black;
@@ -71,6 +71,49 @@ button.screen-instructions {
     text-shadow: 0.5px 0.5px darkslategrey;
     margin-right: 5px;
 }
+h5.endGameScreen {
+    font-size: 40px;
+    line-height: 55px;
+    font-family: Monopoly;
+    color: black;
+    font-weight: bolder;
+    text-shadow: 0.5px 0.5px darkslategrey;
+    text-align: center;
+}
+h5.modalScreen{
+    font-size: 40px;
+    line-height: 55px;
+    font-family: Monopoly;
+    color: white;
+    font-weight: bolder;
+    text-shadow: 0.5px 0.5px darkslategrey;
+    text-align: center;
+}
+.modalScreen {
+text-align: center;
+}
+
+/* scrollbar width */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* scrollbar Track */
+::-webkit-scrollbar-track {
+    border-radius: 10px;
+}
+ 
+/* scrollbar Handle */
+::-webkit-scrollbar-thumb {
+    box-shadow: inset 0 0 5px black; 
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    width: 0px;  /* remove scrollbar space */
+    background: transparent;  /* optional: just make scrollbar invisible */
+}
+
 .players-container {
     width: 65%;
     height: 80%;
@@ -109,4 +152,268 @@ input {
 }
 .playerOneToken, .playerTwoToken {
 height: 50px;
+}
+.die {
+    height: 50px;
+    margin-top: 15px;
+}
+#containerMainGame {
+    display: none;
+
+}
+.body {
+    float: left;
+    height: 715px;
+}
+#playerOne {
+    background-color: rgb(100, 51, 153,0.01);
+    width: 23%;
+}
+.playerH1 {
+    font-family: Monopoly-Bold;
+    font-size: 40px;
+}
+.playerH2 {
+    font-family: Monopoly;
+    font-size: 28px;
+}
+.h3 {
+    font-family: Monopoly;
+}
+#money-symbol {
+    width: 10%;
+}
+#playerOne-info {
+    background-color: rgba(228, 229, 234, 0.7);
+    height: 350px;
+    width: 90%;
+    border: 2px solid black;
+}
+#playerTwo-info {
+    background-color: rgba(228, 229, 234, 0.7);
+    height: 350px;
+    width: 90%;
+    border: 2px solid black;
+}
+#playerOneShowName, #playerTwoShowName {
+    padding: 10px;
+    text-align: center;
+}
+#playerOneGameCashDiv, #playerTwoGameCashDiv {
+    text-align: center;
+} 
+#playerOneGameCash, #playerTwoGameCash {
+    font-size: 20px;
+    margin: 10px;
+}
+.players-properties {
+    text-align: center;
+    margin-top: 20px;
+}
+#playerOneGameOwnedPropertiesDiv, #playerTwoGameOwnedPropertiesDiv {
+    height: 210px;
+    width: 104%;
+    padding-left: 11px;
+}
+.propertiesOwnedImage {
+    width: 60px;
+    height: 50px;
+    margin: 5px;
+    border: 1px solid black;
+}
+.propertiesOwnedImage:hover{
+    transform: scale(2.5);
+}
+.die-background {
+    margin-top: 30px;
+    background-color: #ec8b2ca3;
+    width: 110%;
+    margin-left: -5%;
+}
+#playerOneGameDie, #playerTwoGameDie {
+    text-align: center;
+}
+#playerOne-interactions, #playerTwo-interactions {
+    background-color: rgb(255, 2, 1,0.7);
+    height: 304px;
+    width: 111%;
+    padding: 20px;
+    margin-top: 30px;
+    margin-left: -5%;
+    display: none;
+}
+#playerOneBuy, #playerTwoBuy {
+    margin-bottom: 10px;
+}
+#playerOneInteractionsImageDiv, #playerTwoInteractionsImageDiv {
+    margin-top: 0px;
+    /* padding-left: 25px; */
+}
+#playerOneInteractionsImage, #playerTwoInteractionsImage {
+    width: 70%;
+    height: 150px;
+    margin-left: 15%;
+    margin-bottom: 10px;
+}
+#playerOneInteractionProperty, #playerTwoInteractionProperty, #playerOneInteractionPrice, #playerTwoInteractionPrice {
+    font-family: Monopoly;
+}
+
+#playerOne-chance-chest, #playerTwo-chance-chest, #other {
+    height: 80px;
+    margin-top: 10px;
+}
+.btn-success {
+    margin-left: 6%;
+    width: 80px;
+}
+#playerTwoInteractionYes, #playerOneInteractionYes  {
+    margin-left: 15%;
+}
+#playerTwoInteractionNo, #playerOneInteractionNo {
+    margin-left: 5%;
+    width: 80px;
+}
+#playerOneRent, #playerTwoRent {
+    margin-top: 30px;
+}
+#playerOneInteractionContinue, #playerTwoInteractionContinue {
+    width: 100px;
+    margin: 45px;
+    margin-left: 30%;
+}
+#board {
+    width: 54%;
+}
+#playerTwo {
+    background-color: rgb(65, 104, 226,0.01);
+    width: 23%;
+}
+.row {
+    width: 54%;
+    position: absolute;
+    margin: auto;
+    left: 23%;
+}
+#row2 {
+    top: 120px;
+}
+#row3 {
+    top: 215px;
+}
+#row4 {
+    top: 310px;
+}
+#row5 {
+    top: 405px;
+}
+#row6 {
+    top: 500px;
+}
+#row7 {
+    top: 595px;
+}
+.corners {
+    width: 15%;
+}
+#jail, #fog, #oneWayStreet, #go {
+    height: 120px;
+    width: 100%;
+}
+.properties {
+    height: 95px;
+    width: 14%;
+}
+.long-properties {
+    height: 120px;
+}
+.wide-properties {
+    width: 15%;
+}
+.end-properties {
+    position: absolute;
+    left: 85%;
+}
+.wide-img {
+    height: 96px;
+    width: 100%;
+}
+.long-img {
+    height: 120px;
+    width: 100%;
+}
+.display-none {
+    display: none;
+}
+.playerOne {
+    position: absolute;
+    width: 5%;
+}
+.playerTwo {
+    position: absolute;
+    width: 5%;
+}
+.bottom-20 {
+    bottom: 20%;
+}
+.bottom-60 {
+    bottom: 60%; 
+}
+#playerOne-fog, #playerOne-chance4, #playerOne-noeValley, #playerOne-missionDistrict, #playerOne-chinaTown, #playerOne-haightAshbury {
+    left: 1%;
+}
+#playerTwo-fog, #playerTwo-chance4, #playerTwo-noeValley, #playerTwo-missionDistrict, #playerTwo-chinaTown, #playerTwo-haightAshbury {
+    left: 8%;
+}
+#playerOne-oneWayStreet {
+    left: 1%;
+    bottom: 3%;
+}
+#playerTwo-oneWayStreet {
+    left: 8%;
+    bottom: 3%;
+}
+#playerOne-jail, #playerOne-go {
+    right: 9%;
+}
+#playerTwo-jail, #playerTwo-go {
+    right: 2%;
+}
+#playerOne-chance2, #playerOne-northBeach, #playerOne-soma, #playerOne-financialDistrict, #playerOne-russianHill {
+    width: 35%;
+    left: 11%;
+}
+#playerTwo-chance2, #playerTwo-northBeach, #playerTwo-soma, #playerTwo-financialDistrict, #playerTwo-russianHill {
+    width: 35%;
+    right: 6%;
+}
+#playerOne-chance1, #playerOne-chance3 {
+    left: 44%;
+}
+#playerTwo-chance1, #playerTwo-chance3 {
+    right: 44%;
+}
+#playerOne-goldenGatePark, #playerOne-dogPatch {
+    right: 23%;
+}
+#playerTwo-goldenGatePark, #playerTwo-dogPatch {
+    right: 16%;
+}
+#playerOne-huntersPoint, #playerOne-alamoSquare {
+    right: 37%;
+}
+#playerTwo-huntersPoint, #playerTwo-alamoSquare {
+    right: 30%;
+}
+#playerOne-sunset, #playerOne-civicCenter {
+    left: 30%;
+}
+#playerTwo-sunset, #playerTwo-civicCenter {
+    left: 37%;
+}
+#playerOne-nobHill, #playerOne-theCastro {
+    left: 16%;
+}
+#playerTwo-nobHill, #playerTwo-theCastro {
+    left: 23%;
 }
