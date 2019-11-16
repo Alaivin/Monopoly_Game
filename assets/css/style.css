@@ -166,7 +166,6 @@ height: 50px;
     height: 715px;
 }
 #playerOne {
-    background-color: rgb(100, 51, 153,0.01);
     width: 23%;
 }
 .playerH1 {
@@ -286,7 +285,6 @@ height: 50px;
     width: 54%;
 }
 #playerTwo {
-    background-color: rgb(65, 104, 226,0.01);
     width: 23%;
 }
 .row {

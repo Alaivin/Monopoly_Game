@@ -468,6 +468,179 @@ playerTwoGameDieImage.addEventListener('click', () => {
 
   hideInterval = setInterval(function(){displayPlayerPiece('playerTwo',boardPosition[startMove],'hide',playerTwoPositionCounter);},800);
   showInterval = setInterval(function(){displayPlayerPiece('playerTwo',boardPosition[startMove+1],'show',playerTwoPositionCounter);},1000);
-
   playerTwoClickFlag = true;
 })
+
+//Display the appropriate content in the dynamic player event window for player to take action
+function playerEvent(player, property) {
+  // $(document).on('click','#playerOneGameDieImage');
+  // $(document).on('click','#playerTwoGameDieImage');
+  playerOneClickFlag = false;
+  playerTwoClickFlag = false;
+
+  currentProperty = property;
+  let interactionElementID = document.getElementById(`${player}-interactions`);
+  let dieElementID = document.getElementById(`${player}GameDie`);
+  let dieImageElementID = document.getElementById(`${player}GameDieImage`);
+  let interactionImageID = document.getElementById(`${player}InteractionsImage`);
+  let interactionProperty = document.getElementById(`${player}InteractionProperty`);
+  let interactionPriceText = document.getElementById(`${player}InteractionPrice`);
+  let interactionContinueButton = document.getElementById(`${player}InteractionContinue`);
+  let interactionNoButton = document.getElementById(`${player}InteractionNo`);
+  let interactionYesButton = document.getElementById(`${player}InteractionYes`);
+  let interactionBuyText = document.getElementById(`${player}InteractionBuyText`);
+  let interactionRentText = document.getElementById(`${player}InteractionRentText`);
+  let interactionPropertyText = document.getElementById(`${player}InteractionPropertyText`);
+  let interactionRent = document.getElementById(`${player}Rent`);
+  let interactionBuy = document.getElementById(`${player}Buy`);
+  let interactionChanceName = document.getElementById(`${player}ChanceName`);
+  let interactionChanceAction = document.getElementById(`${player}ChanceAction`);
+  let interactionChanceAmount = document.getElementById(`${player}ChanceAmount`);
+  let interactionAlert = document.getElementById(`${player}Alert`);
+  
+  if (player === "playerOne") {
+      ownedProperty = "playerTwoOwnedProperties";
+  }
+  else {
+      ownedProperty = "playerOneOwnedProperties";
+  }
+  playerOneGameDieImage.setAttribute('src', 'assets/images/dice/BeforeRolled.png');
+  playerOneGameDieImage.classList.remove('die');
+  playerTwoGameDieImage.setAttribute('src', 'assets/images/dice/BeforeRolled.png');
+  playerTwoGameDieImage.classList.remove('die');
+  dieElementID.style.display = 'none';
+  dieImageElementID.style.display = 'none';
+
+  //if player lands on a Property, excluding corner squares and chances
+  if (nonProperties.indexOf(property) < 0) {
+      
+      //if Property is not already owned
+      if (allProperties[property].owner == '') {
+          interactionChanceName.style.display = 'none';
+          interactionChanceAction.style.display = 'none';
+          interactionChanceAmount.style.display = 'none';
+          interactionImageID.setAttribute('src', allProperties[property].url);
+          interactionAlert.style.display = 'none';
+          interactionProperty.text = allProperties[property].name;
+          interactionPriceText.text = allProperties[property].price;
+          interactionNoButton.text = 'No';
+          interactionNoButton.classList.remove('btn-warning');
+          interactionNoButton.classList.add('btn-danger');
+          interactionNoButton.classList.cssText = 'width: 80px; margin-left: 5%';
+          interactionContinueButton.style.display = 'none';
+          interactionRent.style.display = 'none';
+          interactionImageID.style.display = 'block';
+          interactionBuy.style.display = 'block';
+          interactionNoButton.style.display = 'block';
+          interactionYesButton.style.display = 'block';
+          interactionElementID.style.display = 'block';
+      }
+      //if Property is already owned
+      else{
+          if (allProperties[currentProperty].owner === player) {
+              interactionImageID.style.display = 'none';
+              interactionYesButton.style.display = 'none';
+              interactionBuy.style.display = 'none';
+              interactionAlert.style.display = 'none';
+              interactionChanceName.style.display = 'none';
+              interactionChanceAction.style.display = 'none';
+              interactionChanceAmount.style.display = 'none';
+              interactionContinueButton.style.display = 'none';
+              interactionNoButton.text = 'Continue';
+              interactionNoButton.classList.remove('btn-danger');
+              interactionNoButton.classList.add('btn-warning');
+              interactionNoButton.cssText = 'width: 90px; margin-left: 30%';
+              interactionPropertyText.text = 'You own '+ allProperties[currentProperty].name + '.';
+              interactionPropertyText.style.display = 'block';
+              interactionRentText.text = 'No rent due';
+              interactionRentText.style.display = 'block';
+              interactionRent.style.display = 'block';
+              interactionNoButton.style.display = 'block'; //USE No button
+              interactionElementID.style.display = 'block';
+          }
+          else {
+              if (eval(ownedProperty).indexOf(currentProperty) >= 0 && eval(ownedProperty).indexOf(allProperties[currentProperty].pair) >= 0) {
+                rentOwed = allProperties[currentProperty].rent + ((allProperties[currentProperty].rent)*.5);
+              }
+              else{
+                rentOwed = allProperties[currentProperty].rent;
+              }
+              interactionImageID.style.display = 'none';
+              interactionNoButton.style.display = 'none';
+              interactionYesButton.style.display = 'none';
+              interactionBuy.style.display = 'none';
+              interactionAlert.style.display = 'none';
+              interactionChanceName.style.display = 'none';
+              interactionChanceAction.style.display = 'none';
+              interactionChanceAmount.style.display = 'none';
+              interactionPropertyText.text = allProperties[property].name + ' is owned by the other player. $';
+              interactionPropertyText.style.display = 'block';
+              interactionRentText.text = rentOwed + ' rent is due.';
+              interactionRentText.style.display = 'block';
+              interactionRent.style.display = 'block';
+              interactionContinueButton.text = 'Pay Rent';
+              interactionContinueButton.style.display = 'block';
+              interactionElementID.style.display = 'block';
+          }
+          
+      }        
+  }
+  //if square is a corner or Chance square
+  else {
+      //if square is One Way Street or Fog or Jail or Go
+      if (property === "oneWayStreet" || property === "fog" || property === "jail" || property === "go"){
+          if (property === "fog") {
+              fogAudio.play();
+          }else if (property === "oneWayStreet") {
+              honkAudio.play();
+          }else if (property === "jail") {
+              jailAudio.play();
+          }else if (property === "go") {
+              getMoneyAudio.play();
+          }
+          interactionImageID.style.display = 'none';
+          interactionNoButton.style.display = 'none';
+          interactionYesButton.style.display = 'none';
+          interactionBuy.style.display = 'none';
+          interactionRent.style.display = 'none';
+          interactionAlert.style.display = 'none';
+          interactionChanceName.text = allProperties[property].name;
+          interactionChanceAction.text = allProperties[property].action;
+          interactionChanceAmount.text = allProperties[property].value;
+          interactionContinueButton.text = 'Continue';
+          interactionChanceName.style.display = 'block';
+          interactionChanceAction.style.display = 'block';
+          interactionChanceAmount.style.display = 'block';
+          interactionContinueButton.style.display = 'block';
+          interactionElementID.style.display = 'block';
+      }
+      //if square is a chance card
+      else {
+          ranChanceCard = Math.floor(Math.random()*9);
+          randomChanceCard = chanceCard[ranChanceCard];
+          chanceName = chanceCard[ranChanceCard].name;
+
+          interactionImageID.style.display = 'none';
+          interactionNoButton.style.display = 'none';
+          interactionYesButton.style.display = 'none';
+          interactionBuy.style.display = 'none';
+          interactionRent.style.display = 'none';
+          interactionAlert.style.display = 'none';
+          interactionChanceName.text = chanceName;
+          interactionChanceAction.text = chanceCard[ranChanceCard].action;
+
+          if (chanceCard[ranChanceCard].value < 0){
+              interactionChanceAmount.text = 'You owe $' + ((chanceCard[ranChanceCard].value)*-1);
+          }
+          else {
+              interactionChanceAmount.text = 'You get $' + chanceCard[ranChanceCard].value;
+          }
+          interactionContinueButton.text = 'Continue';
+          interactionChanceName.style.display = 'block';
+          interactionChanceAction.style.display = 'block';
+          interactionChanceAmount.style.display = 'block';
+          interactionContinueButton.style.display = 'block';
+          interactionElementID.style.display = 'block';
+      }
+  }
+}
