@@ -644,3 +644,269 @@ function playerEvent(player, property) {
       }
   }
 }
+
+//When player clicks Yes to buy property
+
+let interactionYesButton = document.getElementsByClassName('interactionYesButton')[0];
+interactionYesButton.addEventListener('click', function(event) {
+  var noMoneycounter;
+
+  if (this.getAttribute('data-player') === "one") {
+      player = "playerOne";
+  } else {
+      player = "playerTwo";
+  }
+
+  if (allPlayers[player].cash < allProperties[currentProperty].price || ((allPlayers[player].cash) - (allProperties[currentProperty].price)) < 0) {
+      noMoneyAudio.play();
+      interactionChanceName.style.display = 'none';
+      interactionChanceAction.style.display = 'none';
+      interactionChanceAmount.style.display = 'none';
+      interactionYesButton.style.display = 'none';
+      interactionRent.style.display = 'none';
+      interactionBuy.style.display = 'none';
+      interactionAlert.text = 'Unfortunately, you do not have enough money to buy ' + allProperties[currentProperty].name;
+      interactionContinueButton.style.display = 'none';
+      interactionBuy.style.display = 'none';
+      interactionImageID.style.display = 'none';
+      interactionNoButton.text = 'Continue';
+      interactionNoButton.classList.remove('btn-danger');
+      interactionNoButton.classList.add('btn-warning');
+      interactionNoButton.cssText = 'width: 90px; margin-left: 30%';
+      interactionAlert.style.display = 'block';
+      interactionNoButton.style.display = 'block';
+      interactionElementID.style.display = 'block';
+      noMoneycounter++;
+  }
+  else {
+      buyAudio.play();
+      allProperties[currentProperty].owner = player;
+      allPlayers[player].cash = (allPlayers[player].cash)-(allProperties[currentProperty].price); 
+      document.getElementById(player + 'GameCash').text = allPlayers[player].cash;
+      if (this.getAttribute('data-player') === "one") {
+          player = "playerOne";
+          var url = allProperties[currentProperty].url;
+          allProperties[currentProperty].owner = player;
+          playerOneOwnedProperties.push(currentProperty);
+          let playerOneGameOwnedPropertiesDiv = document.getElementById('playerOneGameOwnedPropertiesDiv');
+          playerOneGameOwnedPropertiesDiv.append('img');
+          playerOneGameOwnedPropertiesDiv.setAttribute('class', 'propertiesOwnedImage');
+          playerOneGameOwnedPropertiesDiv.setAttribute('src', url);
+          playerOneGameOwnedPropertiesDiv.setAttribute('title',allProperties[currentProperty].name);
+      }
+      else{
+          player = "playerTwo";
+          var url = allProperties[currentProperty].url;
+          allProperties[currentProperty].owner = player;
+          playerTwoOwnedProperties.push(currentProperty);
+          let playerTwoGameOwnedPropertiesDiv = document.getElementById('playerTwoGameOwnedPropertiesDiv');
+          playerTwoGameOwnedPropertiesDiv.append('img');
+          playerTwoGameOwnedPropertiesDiv.setAttribute('class', 'propertiesOwnedImage');
+          playerTwoGameOwnedPropertiesDiv.setAttribute('src', url);
+          playerTwoGameOwnedPropertiesDiv.setAttribute('title',allProperties[currentProperty].name);
+      }
+
+      let playerInteractionModule = document.getElementById(player+'-interactions');
+      playerInteractionModule.style.display = 'none';
+
+      switchPlayer(player, 'false');
+  }
+})
+
+//when player clicks no to buy a property
+let interactionNoButton = document.getElementsByClassName('interactionNoButton')[0];
+interactionNoButton.addEventListener('click', function(event) {
+  if (this.getAttribute('data-player') === 'one') {
+      player = "playerOne";
+  }
+  else {
+      player = "playerTwo";
+  }
+  let playerInteractionModule = document.getElementById(player + '-interactions');
+  playerInteractionModule.style.display = 'none';
+
+  switchPlayer(player, 'false')
+})
+
+//player clicks on Chance continue or Pay Rent button 
+let interactionContinueButton = document.getElementsByClassName('interactionContinueButton')[0];
+interactionContinueButton.addEventListener('click', function(event) {
+  if (this.getAttribute('data-player') === "one") {
+      player = "playerOne";
+      otherPlayer = "playerTwo";
+  }
+  else {
+      player = "playerTwo";
+      otherPlayer = "playerOne";
+  }
+
+  // Corner Squares
+  if (currentProperty === "oneWayStreet" || currentProperty === "fog" || currentProperty === "jail" || currentProperty === "go") {
+      if( currentProperty === "fog"){
+          allPlayers[player].missTurn = true;
+      }
+      else if (currentProperty === 'go'){
+          allPlayers[player].cash = (allPlayers[player].cash) + 200;
+          document.getElementById(player + 'GameCash').text = allPlayers[player].cash;
+      }
+      else if (currentProperty === "oneWayStreet"){
+          if (((allPlayers[player].cash) - 100) < 0){
+              allPlayers[player].cash = 0;
+              // alert(player+' Losses');
+              gameOver(player);
+          }
+          else{
+              allPlayers[player].cash = (allPlayers[player].cash) - 100;
+              $('#'+player+'GameCash').text(allPlayers[player].cash);
+          }            
+      }
+      else if (currentProperty === "jail"){
+          if(((allPlayers[player].cash) - 80) < 0){
+              allPlayers[player].cash = 0;
+              // alert(player+' Losses');
+              gameOver(player);
+          }
+          else{
+              allPlayers[player].cash = (allPlayers[player].cash) - 80;
+              document.getElementById(player + 'GameCash').text = allPlayers[player].cash;
+          }            
+      }
+  }
+  //IF Chance Card and ELSE Rent due
+  else{
+      if (allProperties[currentProperty].owner == '') {
+          if((allPlayers[player].cash) + (chanceCard[ranChanceCard].value) < 0) {
+              allPlayers[player].cash = 0;
+              // alert(player+' Losses');
+              gameOver(player);
+          }
+          else {
+              allPlayers[player].cash = (allPlayers[player].cash) + (chanceCard[ranChanceCard].value);
+              document.getElementById(player + 'GameCash').text = allPlayers[player].cash;
+          }
+          
+      }
+      else{
+          if((allPlayers[player].cash) - (rentOwed) < 0){
+              allPlayers[player].cash = 0;
+              // alert(player+' Losses');
+              gameOver(player);
+          }
+          else {
+              allPlayers[player].cash = (allPlayers[player].cash) - (rentOwed);
+              document.getElementById(player + 'GameCash').text = allPlayers[player].cash;
+              getMoneyAudio.play();
+              allPlayers[otherPlayer].cash = (allPlayers[otherPlayer].cash) + (rentOwed);
+              document.getElementById(otherPlayer + 'GameCash').text = allPlayers[otherPlayer].cash;
+          }            
+      }
+  }
+  
+  let playerInteractionModule = document.getElementById(player+'-interactions');
+  playerInteractionModule.style.display = 'none';
+  switchPlayer(player, 'false');
+})
+
+//switch turns, miss a turn
+function switchPlayer (player, value) {
+  if (player == 'playerOne') {
+      if(allPlayers.playerTwo.missTurn == true) {
+          allPlayers.playerOne.turn = true;
+          allPlayers.playerTwo.turn = value;
+          allPlayers.playerTwo.missTurn = false;
+      }
+      else{
+          allPlayers.playerOne.turn = value;
+          allPlayers.playerTwo.turn = true;
+      }
+      
+  }
+  else if (player == 'playerTwo') {
+      if (allPlayers.playerOne.missTurn === true) {
+          allPlayers.playerTwo.turn = true;
+          allPlayers.playerOne.turn = value;
+          allPlayers.playerOne.missTurn = false;
+      }
+      else {
+          allPlayers.playerOne.turn = true;
+          allPlayers.playerTwo.turn = value;
+      }
+      
+  }
+
+  if(allPlayers.playerOne.turn === true) {
+      document.getElementById('playerOneGameDie').style.display = 'block';
+      document.getElementById('playerOneGameDieImage').style.display = 'block';
+  }
+  else if(allPlayers.playerTwo.turn === true) {
+    document.getElementById('playerTwoGameDie').style.display = 'block';
+    document.getElementById('playerTwoGameDieImage').style.display = 'block';
+  }
+}
+
+// //Game over page displays
+// function gameOver(player){
+//   if (player == "playerOne"){
+//       otherPlayer = "playerTwo";
+//       winner = (allPlayers[otherPlayer].name).toUpperCase();
+//       loser = (allPlayers[player].name).toUpperCase();
+//       $('#winnerImg').attr('src',$('#winnerImg').attr('data-playerOne'));
+//   }
+//   else{
+//       otherPlayer = "playerOne";
+//       winner = (allPlayers[otherPlayer].name).toUpperCase();
+//       $('#winnerImg').attr('src',$('#winnerImg').attr('data-playerTwo'));
+//       loser = (allPlayers[player].name).toUpperCase();
+//   }
+//   playerOneEndPosition = '#playerOne-'+allPlayers.playerOne.currentPosition;
+//   playerTwoEndPosition = '#playerTwo-'+allPlayers.playerTwo.currentPosition;
+
+//   $('#goGame').attr('data-gamestart','no');
+//   $('#containerMainGame').hide();
+//   $(playerOneEndPosition).hide();
+//   $(playerTwoEndPosition).hide();
+//   $('.winner').text(winner);
+//   $('.loser').text(loser);
+//   $('.containerEndGame').show();
+// }
+
+// database.ref('highscores').limitToLast(1).on('child_added',function(snapshot){
+//   var p = $('<p>');
+//   var winnerScore = snapshot.val().name + ': ';
+//   winnerScore += snapshot.val().cash;
+//   p.text(winnerScore);
+//   $('#winnerScore').html(p);
+// });
+
+// database.ref('highscores').orderByChild('cash').limitToLast(10).on('child_added',function(snapshot){
+//   var p = $('<p>');
+//   var highScores = snapshot.val().name + ': ';
+//   highScores += snapshot.val().cash;
+//   p.text(highScores);
+//   $('#scores').prepend(p);
+// });
+
+// $(document).on('click','#modalButton',function(){
+//   var name = winner;
+//   var cash = allPlayers[otherPlayer].cash;
+
+//   console.log(name);
+//   console.log(cash);
+  
+//   database.ref('highscores').push({
+//       name: name,
+//       cash: cash
+//   })
+//   $('#highScoresModal').show();
+// })
+
+// $(document).on('click','#closeModal',function(){
+//   $('#highScoresModal').hide();
+// })
+
+// $(document).click(function(event) {
+//     if(event.target == $('#highScoresModal')){
+//         $('#highScoresModal').hide();
+//     }
+  
+// })
