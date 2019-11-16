@@ -1,5 +1,5 @@
-const startDieOne = Math.ceil(Math.random()*6);
-const startDieTwo = Math.ceil(Math.random()*6);
+let startDieOne = Math.ceil(Math.random()*6);
+let startDieTwo = Math.ceil(Math.random()*6);
 const allPlayers = {
   playerOne : {},
   playerTwo : {}
@@ -9,6 +9,9 @@ const boardPosition = ['go', 'goldenGatePark', 'huntersPoint', 'chance3', 'sunse
 const nonProperties = ['go','chance3','oneWayStreet','chance4','fog','chance1','jail','chance2']
 let playerOnePositionCounter = 0;
 let playerTwoPositionCounter = 0;
+let startMove = 0;
+let playerOneClickFlag = false;
+let playerTwoClickFlag = false;
 const diceAudio = document.getElementById("audioDice");
 const fogAudio = document.getElementById("audioFog");
 const jailAudio = document.getElementById("audioJail");
@@ -216,7 +219,7 @@ var allProperties = {
   };
 
   // Object  for chance cards
-  
+
   var chanceCard = [
   {
      name: 'Parking Expired', 
@@ -332,9 +335,9 @@ const playerTwoShowName = document.getElementById('playerTwoShowName');
 const playerOneGameCash = document.getElementById('playerOneGameCash');
 const playerTwoGameCash = document.getElementById('playerTwoGameCash');
 const playerOneGameDie = document.getElementById('playerOneGameDie');
-const playerOneGameDieImage = document.getElementById('playerOneGameDieImage');
+let playerOneGameDieImage = document.getElementById('playerOneGameDieImage');
 const playerTwoGameDie = document.getElementById('playerTwoGameDie');
-const playerTwoGameDieImage = document.getElementById('playerTwoGameDieImage');
+let playerTwoGameDieImage = document.getElementById('playerTwoGameDieImage');
 const containerMainGame = document.getElementById('containerMainGame');
 
 submitInfo.addEventListener('click', event => {
@@ -393,7 +396,7 @@ function displayPlayerPiece(player, property, display, playerPositionCounter) {
       getMoneyAudio.play();
   }
 
-  let position = player + "-" + property;
+  let position = player.property;
 
   if(startMove === playerPositionCounter) {
       clearInterval(hideInterval);
@@ -404,10 +407,67 @@ function displayPlayerPiece(player, property, display, playerPositionCounter) {
       }
   }
 
+  const playerOneGo = document.getElementById('playerOne-go');
+  const playerTwoGo = document.getElementById('playerTwo-go');
+
   if (display === 'show'){
-      position.style.display = 'block';
+      playerOneGo.style.display = 'block';
       startMove++;
   } else if (display === 'hide'){
-      position.style.display = 'none';
+      playerTwoGo.style.display = 'none';
   }    
 }
+
+// Game Start - Player1 rolls dice
+
+  playerOneGameDieImage.addEventListener('click', () => {
+  if(playerOneClickFlag) return;
+  
+  allPlayers.playerTwo.turn = 'false';
+  allPlayers.playerOne.turn = 'true';
+  let alreadyMissedTurn = 0;
+  startMove = playerOnePositionCounter;
+  
+  startDieOne = Math.ceil(Math.random()*6);
+  
+  diceAudio.play();
+  playerOneGameDieImage.setAttribute('src', `assets/images/dice/${startDieOne}.png`);
+  playerOneGameDieImage.classList.add('die');
+  // displayPlayerPiece('player1',boardPosition[playerOnePositionCounter],'hide');
+  playerOnePositionCounter = playerOnePositionCounter + startDieOne; //startDieOne;
+  allPlayers.playerOne.currentPosition = boardPosition[playerOnePositionCounter];
+  // displayPlayerPiece('player1',boardPosition[playerOnePositionCounter],'show');
+
+  hideInterval = setInterval(function() {
+    displayPlayerPiece('playerOne', boardPosition[startMove], 'hide', playerOnePositionCounter);
+  }, 800);
+  showInterval = setInterval(function() {
+    displayPlayerPiece('playerOne', boardPosition[startMove+1], 'show', playerOnePositionCounter);
+  }, 1000);
+  
+  playerOneClickFlag = true;
+})
+
+// Game Start - Player2 rolls dice
+playerTwoGameDieImage.addEventListener('click', () => {
+  
+  if(playerTwoClickFlag) return;
+
+  allPlayers.playerTwo.turn = 'true';
+  allPlayers.playerOne.turn = 'false';
+  let alreadyMissedTurn = 0;
+  startMove = playerTwoPositionCounter;
+  startDieTwo = Math.ceil(Math.random()*6);
+  diceAudio.play();
+  playerTwoGameDieImage.setAttribute('src', `assets/images/dice/${startDieTwo}.png`);
+  playerTwoGameDieImage.classList.add('die');
+  // displayPlayerPiece('player2',boardPosition[playerTwoPositionCounter],'hide');
+  playerTwoPositionCounter = playerTwoPositionCounter + startDieTwo; //startDieTwo;
+  allPlayers.playerTwo.currentPosition = boardPosition[playerTwoPositionCounter];
+  // displayPlayerPiece('player2',boardPosition[playerTwoPositionCounter],'show');
+
+  hideInterval = setInterval(function(){displayPlayerPiece('playerTwo',boardPosition[startMove],'hide',playerTwoPositionCounter);},800);
+  showInterval = setInterval(function(){displayPlayerPiece('playerTwo',boardPosition[startMove+1],'show',playerTwoPositionCounter);},1000);
+
+  playerTwoClickFlag = true;
+})
