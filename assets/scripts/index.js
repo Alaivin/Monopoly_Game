@@ -398,7 +398,7 @@ function displayPlayerPiece(player, property, display, playerPositionCounter) {
       getMoneyAudio.play();
   }
 
-  let position = player.property;
+  position = player + "-" + property;
 
   if(startMove === playerPositionCounter) {
       clearInterval(hideInterval);
@@ -409,15 +409,13 @@ function displayPlayerPiece(player, property, display, playerPositionCounter) {
       }
   }
 
-  const playerOneGo = document.getElementById('playerOne-go');
-  const playerTwoGo = document.getElementById('playerTwo-go');
-
-  if (display === 'show'){
-      playerOneGo.style.display = 'block';
-      startMove++;
-  } else if (display === 'hide'){
-      playerTwoGo.style.display = 'none';
-  }    
+  const currentTokenStyle = document.getElementById(position).style;
+    if (display === 'show'){
+      currentTokenStyle.display = 'block';
+        startMove++;
+    } else if (display === 'hide'){
+      currentTokenStyle.display = 'none';
+    }    
 }
 
 // Game Start - Player1 rolls dice
