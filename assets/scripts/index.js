@@ -1,5 +1,7 @@
 let startDieOne = Math.ceil(Math.random()*6);
 let startDieTwo = Math.ceil(Math.random()*6);
+const playerOneOwnedProperties = [];
+const playerTwoOwnedProperties = [];
 const allPlayers = {
   playerOne : {},
   playerTwo : {}
@@ -647,86 +649,81 @@ function playerEvent(player, property) {
 
 //When player clicks Yes to buy property
 
-let interactionYesButton = document.getElementsByClassName('interactionYesButton')[0];
-interactionYesButton.addEventListener('click', function(event) {
-  var noMoneycounter;
-
-  if (this.getAttribute('data-player') === "one") {
+let interactionYesButtons = document.getElementsByClassName('interactionYesButton');
+for (let i = 0; i < interactionYesButtons.length; i++) {
+  interactionYesButtons[i].addEventListener('click', function(event) {
+    let noMoneycounter;
+  
+    if (this.getAttribute('data-player') === "one") {
       player = "playerOne";
-  } else {
+    } else {
       player = "playerTwo";
-  }
+    }
+    
+    if (allPlayers[player].cash < allProperties[currentProperty].price || ((allPlayers[player].cash) - (allProperties[currentProperty].price)) < 0) {
+        noMoneyAudio.play();
+        interactionChanceName.style.display = 'none';
+        interactionChanceAction.style.display = 'none';
+        interactionChanceAmount.style.display = 'none';
+        interactionYesButton.style.display = 'none';
+        interactionRent.style.display = 'none';
+        interactionBuy.style.display = 'none';
+        interactionAlert.innerHTML = 'Unfortunately, you do not have enough money to buy ' + allProperties[currentProperty].name;
+        interactionContinueButton.style.display = 'none';
+        interactionBuy.style.display = 'none';
+        interactionImageID.style.display = 'none';
+        interactionNoButton.innerHTML = 'Continue';
+        interactionNoButton.classList.remove('btn-danger');
+        interactionNoButton.classList.add('btn-warning');
+        interactionNoButton.style.cssText = 'width: 90px; margin-left: 30%';
+        interactionAlert.style.display = 'block';
+        interactionNoButton.style.display = 'block';
+        interactionElementID.style.display = 'block';
+        noMoneycounter++;
+    }
+    else {
+        buyAudio.play();
+        allProperties[currentProperty].owner = player;
+        allPlayers[player].cash = (allPlayers[player].cash)-(allProperties[currentProperty].price); 
+        document.getElementById(player + 'GameCash').innerHTML = allPlayers[player].cash;
 
-  if (allPlayers[player].cash < allProperties[currentProperty].price || ((allPlayers[player].cash) - (allProperties[currentProperty].price)) < 0) {
-      noMoneyAudio.play();
-      interactionChanceName.style.display = 'none';
-      interactionChanceAction.style.display = 'none';
-      interactionChanceAmount.style.display = 'none';
-      interactionYesButton.style.display = 'none';
-      interactionRent.style.display = 'none';
-      interactionBuy.style.display = 'none';
-      interactionAlert.innerHTML = 'Unfortunately, you do not have enough money to buy ' + allProperties[currentProperty].name;
-      interactionContinueButton.style.display = 'none';
-      interactionBuy.style.display = 'none';
-      interactionImageID.style.display = 'none';
-      interactionNoButton.innerHTML = 'Continue';
-      interactionNoButton.classList.remove('btn-danger');
-      interactionNoButton.classList.add('btn-warning');
-      interactionNoButton.style.cssText = 'width: 90px; margin-left: 30%';
-      interactionAlert.style.display = 'block';
-      interactionNoButton.style.display = 'block';
-      interactionElementID.style.display = 'block';
-      noMoneycounter++;
-  }
-  else {
-      buyAudio.play();
-      allProperties[currentProperty].owner = player;
-      allPlayers[player].cash = (allPlayers[player].cash)-(allProperties[currentProperty].price); 
-      document.getElementById(player + 'GameCash').innerHTML = allPlayers[player].cash;
-      if (this.getAttribute('data-player') === "one") {
-          player = "playerOne";
-          var url = allProperties[currentProperty].url;
-          allProperties[currentProperty].owner = player;
-          playerOneOwnedProperties.push(currentProperty);
-          let playerOneGameOwnedPropertiesDiv = document.getElementById('playerOneGameOwnedPropertiesDiv');
-          playerOneGameOwnedPropertiesDiv.append('img');
-          playerOneGameOwnedPropertiesDiv.setAttribute('class', 'propertiesOwnedImage');
-          playerOneGameOwnedPropertiesDiv.setAttribute('src', url);
-          playerOneGameOwnedPropertiesDiv.setAttribute('title',allProperties[currentProperty].name);
-      }
-      else{
-          player = "playerTwo";
-          var url = allProperties[currentProperty].url;
-          allProperties[currentProperty].owner = player;
-          playerTwoOwnedProperties.push(currentProperty);
-          let playerTwoGameOwnedPropertiesDiv = document.getElementById('playerTwoGameOwnedPropertiesDiv');
-          playerTwoGameOwnedPropertiesDiv.append('img');
-          playerTwoGameOwnedPropertiesDiv.setAttribute('class', 'propertiesOwnedImage');
-          playerTwoGameOwnedPropertiesDiv.setAttribute('src', url);
-          playerTwoGameOwnedPropertiesDiv.setAttribute('title',allProperties[currentProperty].name);
-      }
+        const isPlayerOne = this.getAttribute('data-player') === "one";
+        player = isPlayerOne ? 'playerOne' : 'playerTwo';
+        const url = allProperties[currentProperty].url;
+        allProperties[currentProperty].owner = player;
+        isPlayerOne ? playerOneOwnedProperties.push(currentProperty) : playerTwoOwnedProperties.push(currentProperty);
+        const playerOwnedProperties = isPlayerOne ? document.getElementById('playerOneGameOwnedPropertiesDiv') : document.getElementById('playerTwoGameOwnedPropertiesDiv');
+        const image = document.createElement("img");
+        image.setAttribute('class', 'propertiesOwnedImage');
+        image.setAttribute('src', url);
+        image.setAttribute('title',allProperties[currentProperty].name);
+        playerOwnedProperties.append(image);
 
+  
       let playerInteractionModule = document.getElementById(player+'-interactions');
       playerInteractionModule.style.display = 'none';
 
       switchPlayer(player, 'false');
-  }
-})
+    }
+  })
+}
 
 //when player clicks no to buy a property
-let interactionNoButton = document.getElementsByClassName('interactionNoButton')[0];
-interactionNoButton.addEventListener('click', function(event) {
-  if (this.getAttribute('data-player') === 'one') {
-      player = "playerOne";
-  }
-  else {
-      player = "playerTwo";
-  }
-  let playerInteractionModule = document.getElementById(player + '-interactions');
-  playerInteractionModule.style.display = 'none';
-
-  switchPlayer(player, 'false')
-})
+let interactionNoButtons = document.getElementsByClassName('interactionNoButton');
+for (let i = 0; i < interactionNoButtons.length; i++) {
+  interactionNoButtons[i].addEventListener('click', function(event) {
+    if (this.getAttribute('data-player') === 'one') {
+        player = "playerOne";
+    }
+    else {
+        player = "playerTwo";
+    }
+    let playerInteractionModule = document.getElementById(player + '-interactions');
+    playerInteractionModule.style.display = 'none';
+  
+    switchPlayer(player, 'false')
+  })
+}
 
 //player clicks on Chance continue or Pay Rent button 
 let interactionContinueButton = document.getElementsByClassName('interactionContinueButton')[0];
@@ -757,7 +754,7 @@ interactionContinueButton.addEventListener('click', function(event) {
           }
           else{
               allPlayers[player].cash = (allPlayers[player].cash) - 100;
-              $('#'+player+'GameCash').innerHTML(allPlayers[player].cash);
+              document.getElementById('#'+player+'GameCash').innerHTML(allPlayers[player].cash);
           }            
       }
       else if (currentProperty === "jail"){
