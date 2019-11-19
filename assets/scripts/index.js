@@ -524,7 +524,7 @@ function playerEvent(player, property) {
           interactionAlert.style.display = 'none';
           interactionProperty.innerHTML = allProperties[property].name;
           interactionPriceText.innerHTML = allProperties[property].price;
-          interactionNoButton.innerHTML = 'No';
+          interactionNoButton.innerHTML = 'Нет';
           interactionNoButton.classList.remove('btn-warning');
           interactionNoButton.classList.add('btn-danger');
           interactionNoButton.style.cssText = 'width: 80px; margin-left: 5%';
