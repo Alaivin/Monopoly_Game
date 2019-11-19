@@ -14,6 +14,7 @@ let playerTwoPositionCounter = 0;
 let startMove = 0;
 let playerOneClickFlag = false;
 let playerTwoClickFlag = false;
+let otherPlayer;
 const diceAudio = document.getElementById("audioDice");
 const fogAudio = document.getElementById("audioFog");
 const jailAudio = document.getElementById("audioJail");
@@ -724,46 +725,43 @@ for (let i = 0; i < interactionNoButtons.length; i++) {
 }
 
 //player clicks on Chance continue or Pay Rent button 
-let interactionContinueButton = document.getElementsByClassName('interactionContinueButton')[0];
-interactionContinueButton.addEventListener('click', function(event) {
-  if (this.getAttribute('data-player') === "one") {
-      player = "playerOne";
-      otherPlayer = "playerTwo";
-  }
-  else {
-      player = "playerTwo";
-      otherPlayer = "playerOne";
-  }
+const interactionContinueButtons = document.getElementsByClassName('interactionContinueButton');
+for (let i = 0; i < interactionContinueButtons.length; i++) {
+  interactionContinueButtons[i].addEventListener('click', function(event) {
+    const isPlayerOne = this.getAttribute('data-player') === 'one';
+    player = isPlayerOne && 'playerOne' || 'playerTwo';
+    otherPlayer = isPlayerOne && 'playerTwo' || 'playerOne';
 
+    const gameCashDiv = document.getElementById(player + 'GameCash')
+  
   // Corner Squares
   if (currentProperty === "oneWayStreet" || currentProperty === "fog" || currentProperty === "jail" || currentProperty === "go") {
       if( currentProperty === "fog"){
           allPlayers[player].missTurn = true;
       }
       else if (currentProperty === 'go'){
-          allPlayers[player].cash = (allPlayers[player].cash) + 200;
-          document.getElementById(player + 'GameCash').innerHTML = allPlayers[player].cash;
+            const updatedCash = allPlayers[player].cash + 200
+            allPlayers[player].cash = updatedCash;
+            gameCashDiv.innerHTML = updatedCash;
       }
       else if (currentProperty === "oneWayStreet"){
-          if (((allPlayers[player].cash) - 100) < 0){
+            if ((allPlayers[player].cash - 100) < 0){
               allPlayers[player].cash = 0;
-              // alert(player+' Losses');
               gameOver(player);
           }
           else{
               allPlayers[player].cash = (allPlayers[player].cash) - 100;
-              document.getElementById('#'+player+'GameCash').innerHTML(allPlayers[player].cash);
+                gameCashDiv.innerHTML = allPlayers[player].cash;
           }            
       }
       else if (currentProperty === "jail"){
-          if(((allPlayers[player].cash) - 80) < 0){
+            if((allPlayers[player].cash - 80) < 0){
               allPlayers[player].cash = 0;
-              // alert(player+' Losses');
               gameOver(player);
           }
           else{
-              allPlayers[player].cash = (allPlayers[player].cash) - 80;
-              document.getElementById(player + 'GameCash').innerHTML = allPlayers[player].cash;
+                allPlayers[player].cash = allPlayers[player].cash - 80;
+                gameCashDiv.innerHTML = allPlayers[player].cash;
           }            
       }
   }
@@ -777,19 +775,18 @@ interactionContinueButton.addEventListener('click', function(event) {
           }
           else {
               allPlayers[player].cash = (allPlayers[player].cash) + (chanceCard[ranChanceCard].value);
-              document.getElementById(player + 'GameCash').innerHTML = allPlayers[player].cash;
+                gameCashDiv.innerHTML = allPlayers[player].cash;
           }
           
       }
       else{
           if((allPlayers[player].cash) - (rentOwed) < 0){
               allPlayers[player].cash = 0;
-              // alert(player+' Losses');
               gameOver(player);
           }
           else {
               allPlayers[player].cash = (allPlayers[player].cash) - (rentOwed);
-              document.getElementById(player + 'GameCash').innerHTML = allPlayers[player].cash;
+                gameCashDiv.innerHTML = allPlayers[player].cash;
               getMoneyAudio.play();
               allPlayers[otherPlayer].cash = (allPlayers[otherPlayer].cash) + (rentOwed);
               document.getElementById(otherPlayer + 'GameCash').innerHTML = allPlayers[otherPlayer].cash;
@@ -801,6 +798,8 @@ interactionContinueButton.addEventListener('click', function(event) {
   playerInteractionModule.style.display = 'none';
   switchPlayer(player, 'false');
 })
+
+}
 
 //switch turns, miss a turn
 function switchPlayer (player, value) {
