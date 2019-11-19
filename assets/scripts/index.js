@@ -356,10 +356,10 @@ submitInfo.addEventListener('click', event => {
       allPlayers.playerOne.cash = 1000;
       allPlayers.playerTwo.cash = 1000;
       playersContainer.style.display = 'none';
-      playerOneShowName.text = allPlayers.playerOne.name;
-      playerTwoShowName.text = allPlayers.playerTwo.name;
-      playerOneGameCash.text = allPlayers.playerOne.cash;
-      playerTwoGameCash.text = allPlayers.playerTwo.cash;
+      playerOneShowName.innerHTML = allPlayers.playerOne.name;
+      playerTwoShowName.innerHTML = allPlayers.playerTwo.name;
+      playerOneGameCash.innerHTML = allPlayers.playerOne.cash;
+      playerTwoGameCash.innerHTML = allPlayers.playerTwo.cash;
       displayPlayerPiece('playerOne', boardPosition[playerOnePositionCounter], 'show');
       displayPlayerPiece('playerTwo', boardPosition[playerOnePositionCounter], 'show');
         if (playerOneDie > playerTwoDie){
@@ -384,7 +384,7 @@ function displayPlayerPiece(player, property, display, playerPositionCounter) {
       playerPositionCounter = playerPositionCounter - 24;
       playerOnePositionCounter = playerOnePositionCounter - 24;
       allPlayers.playerOne.cash += 200;
-      playerOneGameCash.text = allPlayers.playerOne.cash;
+      playerOneGameCash.innerHTML = allPlayers.playerOne.cash;
       getMoneyAudio.play();
   }
   if (startMove === 24 && player === 'playerTwo' && display === 'hide') {
@@ -392,7 +392,7 @@ function displayPlayerPiece(player, property, display, playerPositionCounter) {
       playerPositionCounter = playerPositionCounter - 24;
       playerTwoPositionCounter = playerTwoPositionCounter - 24;
       allPlayers.playerTwo.cash += 200;
-      playerTwoGameCash.text = allPlayers.playerTwo.cash;
+      playerTwoGameCash.innerHTML = allPlayers.playerTwo.cash;
       getMoneyAudio.play();
   }
 
@@ -521,12 +521,12 @@ function playerEvent(player, property) {
           interactionChanceAmount.style.display = 'none';
           interactionImageID.setAttribute('src', allProperties[property].url);
           interactionAlert.style.display = 'none';
-          interactionProperty.text = allProperties[property].name;
-          interactionPriceText.text = allProperties[property].price;
-          interactionNoButton.text = 'No';
+          interactionProperty.innerHTML = allProperties[property].name;
+          interactionPriceText.innerHTML = allProperties[property].price;
+          interactionNoButton.innerHTML = 'No';
           interactionNoButton.classList.remove('btn-warning');
           interactionNoButton.classList.add('btn-danger');
-          interactionNoButton.classList.cssText = 'width: 80px; margin-left: 5%';
+          interactionNoButton.style.cssText = 'width: 80px; margin-left: 5%';
           interactionContinueButton.style.display = 'none';
           interactionRent.style.display = 'none';
           interactionImageID.style.display = 'block';
@@ -546,13 +546,13 @@ function playerEvent(player, property) {
               interactionChanceAction.style.display = 'none';
               interactionChanceAmount.style.display = 'none';
               interactionContinueButton.style.display = 'none';
-              interactionNoButton.text = 'Continue';
+              interactionNoButton.innerHTML = 'Continue';
               interactionNoButton.classList.remove('btn-danger');
               interactionNoButton.classList.add('btn-warning');
-              interactionNoButton.cssText = 'width: 90px; margin-left: 30%';
-              interactionPropertyText.text = 'You own '+ allProperties[currentProperty].name + '.';
+              interactionNoButton.style.cssText = 'width: 90px; margin-left: 30%';
+              interactionPropertyText.innerHTML = 'You own '+ allProperties[currentProperty].name + '.';
               interactionPropertyText.style.display = 'block';
-              interactionRentText.text = 'No rent due';
+              interactionRentText.innerHTML = 'No rent due';
               interactionRentText.style.display = 'block';
               interactionRent.style.display = 'block';
               interactionNoButton.style.display = 'block'; //USE No button
@@ -573,12 +573,12 @@ function playerEvent(player, property) {
               interactionChanceName.style.display = 'none';
               interactionChanceAction.style.display = 'none';
               interactionChanceAmount.style.display = 'none';
-              interactionPropertyText.text = allProperties[property].name + ' is owned by the other player. $';
-              interactionPropertyText.style.display = 'block';
-              interactionRentText.text = rentOwed + ' rent is due.';
-              interactionRentText.style.display = 'block';
+              interactionProperty.innerHTML = allProperties[property].name + ' is owned by the other player. $';
+              interactionProperty.style.display = 'block';
+              interactionRent.innerHTML = rentOwed + ' rent is due.';
               interactionRent.style.display = 'block';
-              interactionContinueButton.text = 'Pay Rent';
+              interactionRent.style.display = 'block';
+              interactionContinueButton.innerHTML = 'Pay Rent';
               interactionContinueButton.style.display = 'block';
               interactionElementID.style.display = 'block';
           }
@@ -604,10 +604,10 @@ function playerEvent(player, property) {
           interactionBuy.style.display = 'none';
           interactionRent.style.display = 'none';
           interactionAlert.style.display = 'none';
-          interactionChanceName.text = allProperties[property].name;
-          interactionChanceAction.text = allProperties[property].action;
-          interactionChanceAmount.text = allProperties[property].value;
-          interactionContinueButton.text = 'Continue';
+          interactionChanceName.innerHTML = allProperties[property].name;
+          interactionChanceAction.innerHTML = allProperties[property].action;
+          interactionChanceAmount.innerHTML = allProperties[property].value;
+          interactionContinueButton.innerHTML = 'Continue';
           interactionChanceName.style.display = 'block';
           interactionChanceAction.style.display = 'block';
           interactionChanceAmount.style.display = 'block';
@@ -626,16 +626,16 @@ function playerEvent(player, property) {
           interactionBuy.style.display = 'none';
           interactionRent.style.display = 'none';
           interactionAlert.style.display = 'none';
-          interactionChanceName.text = chanceName;
-          interactionChanceAction.text = chanceCard[ranChanceCard].action;
+          interactionChanceName.innerHTML = chanceName;
+          interactionChanceAction.innerHTML = chanceCard[ranChanceCard].action;
 
           if (chanceCard[ranChanceCard].value < 0){
-              interactionChanceAmount.text = 'You owe $' + ((chanceCard[ranChanceCard].value)*-1);
+              interactionChanceAmount.innerHTML = 'You owe $' + ((chanceCard[ranChanceCard].value)*-1);
           }
           else {
-              interactionChanceAmount.text = 'You get $' + chanceCard[ranChanceCard].value;
+              interactionChanceAmount.innerHTML = 'You get $' + chanceCard[ranChanceCard].value;
           }
-          interactionContinueButton.text = 'Continue';
+          interactionContinueButton.innerHTML = 'Continue';
           interactionChanceName.style.display = 'block';
           interactionChanceAction.style.display = 'block';
           interactionChanceAmount.style.display = 'block';
@@ -665,14 +665,14 @@ interactionYesButton.addEventListener('click', function(event) {
       interactionYesButton.style.display = 'none';
       interactionRent.style.display = 'none';
       interactionBuy.style.display = 'none';
-      interactionAlert.text = 'Unfortunately, you do not have enough money to buy ' + allProperties[currentProperty].name;
+      interactionAlert.innerHTML = 'Unfortunately, you do not have enough money to buy ' + allProperties[currentProperty].name;
       interactionContinueButton.style.display = 'none';
       interactionBuy.style.display = 'none';
       interactionImageID.style.display = 'none';
-      interactionNoButton.text = 'Continue';
+      interactionNoButton.innerHTML = 'Continue';
       interactionNoButton.classList.remove('btn-danger');
       interactionNoButton.classList.add('btn-warning');
-      interactionNoButton.cssText = 'width: 90px; margin-left: 30%';
+      interactionNoButton.style.cssText = 'width: 90px; margin-left: 30%';
       interactionAlert.style.display = 'block';
       interactionNoButton.style.display = 'block';
       interactionElementID.style.display = 'block';
@@ -682,7 +682,7 @@ interactionYesButton.addEventListener('click', function(event) {
       buyAudio.play();
       allProperties[currentProperty].owner = player;
       allPlayers[player].cash = (allPlayers[player].cash)-(allProperties[currentProperty].price); 
-      document.getElementById(player + 'GameCash').text = allPlayers[player].cash;
+      document.getElementById(player + 'GameCash').innerHTML = allPlayers[player].cash;
       if (this.getAttribute('data-player') === "one") {
           player = "playerOne";
           var url = allProperties[currentProperty].url;
@@ -747,7 +747,7 @@ interactionContinueButton.addEventListener('click', function(event) {
       }
       else if (currentProperty === 'go'){
           allPlayers[player].cash = (allPlayers[player].cash) + 200;
-          document.getElementById(player + 'GameCash').text = allPlayers[player].cash;
+          document.getElementById(player + 'GameCash').innerHTML = allPlayers[player].cash;
       }
       else if (currentProperty === "oneWayStreet"){
           if (((allPlayers[player].cash) - 100) < 0){
@@ -757,7 +757,7 @@ interactionContinueButton.addEventListener('click', function(event) {
           }
           else{
               allPlayers[player].cash = (allPlayers[player].cash) - 100;
-              $('#'+player+'GameCash').text(allPlayers[player].cash);
+              $('#'+player+'GameCash').innerHTML(allPlayers[player].cash);
           }            
       }
       else if (currentProperty === "jail"){
@@ -768,7 +768,7 @@ interactionContinueButton.addEventListener('click', function(event) {
           }
           else{
               allPlayers[player].cash = (allPlayers[player].cash) - 80;
-              document.getElementById(player + 'GameCash').text = allPlayers[player].cash;
+              document.getElementById(player + 'GameCash').innerHTML = allPlayers[player].cash;
           }            
       }
   }
@@ -782,7 +782,7 @@ interactionContinueButton.addEventListener('click', function(event) {
           }
           else {
               allPlayers[player].cash = (allPlayers[player].cash) + (chanceCard[ranChanceCard].value);
-              document.getElementById(player + 'GameCash').text = allPlayers[player].cash;
+              document.getElementById(player + 'GameCash').innerHTML = allPlayers[player].cash;
           }
           
       }
@@ -794,10 +794,10 @@ interactionContinueButton.addEventListener('click', function(event) {
           }
           else {
               allPlayers[player].cash = (allPlayers[player].cash) - (rentOwed);
-              document.getElementById(player + 'GameCash').text = allPlayers[player].cash;
+              document.getElementById(player + 'GameCash').innerHTML = allPlayers[player].cash;
               getMoneyAudio.play();
               allPlayers[otherPlayer].cash = (allPlayers[otherPlayer].cash) + (rentOwed);
-              document.getElementById(otherPlayer + 'GameCash').text = allPlayers[otherPlayer].cash;
+              document.getElementById(otherPlayer + 'GameCash').innerHTML = allPlayers[otherPlayer].cash;
           }            
       }
   }
@@ -865,8 +865,8 @@ function switchPlayer (player, value) {
 //   $('#containerMainGame').hide();
 //   $(playerOneEndPosition).hide();
 //   $(playerTwoEndPosition).hide();
-//   $('.winner').text(winner);
-//   $('.loser').text(loser);
+//   $('.winner').innerHTML(winner);
+//   $('.loser').innerHTML(loser);
 //   $('.containerEndGame').show();
 // }
 
@@ -874,7 +874,7 @@ function switchPlayer (player, value) {
 //   var p = $('<p>');
 //   var winnerScore = snapshot.val().name + ': ';
 //   winnerScore += snapshot.val().cash;
-//   p.text(winnerScore);
+//   p.innerHTML(winnerScore);
 //   $('#winnerScore').html(p);
 // });
 
@@ -882,7 +882,7 @@ function switchPlayer (player, value) {
 //   var p = $('<p>');
 //   var highScores = snapshot.val().name + ': ';
 //   highScores += snapshot.val().cash;
-//   p.text(highScores);
+//   p.innerHTML(highScores);
 //   $('#scores').prepend(p);
 // });
 
