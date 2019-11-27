@@ -414,3 +414,49 @@ height: 50px;
 #playerTwo-nobHill, #playerTwo-theCastro {
     left: 23%;
 }
+
+/* End game page */
+
+#winnerImg{
+    width: 250px;
+    height: 125px;
+    margin-top: 30px;
+}
+#resetGame{
+    margin-top: 20px;
+}
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    /* left: 0;
+    top: 0; */
+    margin: auto;
+    width: 50%; /* Full width */
+    height: 70%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: #fdb90e; /*matches yellow from button */
+    border: 2px solid black;
+    border-radius: 15px;
+    font-family: Monopoly;
+    font-size: 20px;
+    line-height: 30px;
+    color: black;
+}
+#modalH2 {
+    font-size: 60px;
+}
+.modal-content {
+    background-color: black;
+    margin: auto;
+    color: white;
+    box-shadow: 1px 1px 1px darkred;
+}
+#modalButton{
+    margin-top: 20px;
+}
+#closeModal{
+    margin-left: 44%;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}

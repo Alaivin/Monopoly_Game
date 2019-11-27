@@ -15,6 +15,8 @@ let startMove = 0;
 let playerOneClickFlag = false;
 let playerTwoClickFlag = false;
 let otherPlayer;
+let winner;
+let looser;
 const diceAudio = document.getElementById("audioDice");
 const fogAudio = document.getElementById("audioFog");
 const jailAudio = document.getElementById("audioJail");
@@ -838,69 +840,36 @@ function switchPlayer (player, value) {
   }
 }
 
-// //Game over page displays
-// function gameOver(player){
-//   if (player == "playerOne"){
-//       otherPlayer = "playerTwo";
-//       winner = (allPlayers[otherPlayer].name).toUpperCase();
-//       loser = (allPlayers[player].name).toUpperCase();
-//       $('#winnerImg').attr('src',$('#winnerImg').attr('data-playerOne'));
-//   }
-//   else{
-//       otherPlayer = "playerOne";
-//       winner = (allPlayers[otherPlayer].name).toUpperCase();
-//       $('#winnerImg').attr('src',$('#winnerImg').attr('data-playerTwo'));
-//       loser = (allPlayers[player].name).toUpperCase();
-//   }
-//   playerOneEndPosition = '#playerOne-'+allPlayers.playerOne.currentPosition;
-//   playerTwoEndPosition = '#playerTwo-'+allPlayers.playerTwo.currentPosition;
+// Game over page displays
 
-//   $('#goGame').attr('data-gamestart','no');
-//   $('#containerMainGame').hide();
-//   $(playerOneEndPosition).hide();
-//   $(playerTwoEndPosition).hide();
-//   $('.winner').innerHTML(winner);
-//   $('.loser').innerHTML(loser);
-//   $('.containerEndGame').show();
-// }
+function gameOver (player) {
+  if (player === "playerOne") {
+      otherPlayer = "playerTwo";
+      winner = (allPlayers[otherPlayer].name).toUpperCase();
+      lo0ser = (allPlayers[player].name).toUpperCase();
+      const winnerImg = document.getElementById('winnerImg');
+      winnerImg.setAttribute('src', winnerImg.getAttribute('data-playerTwo'));
+  } else {
+      otherPlayer = "playerOne";
+      winner = (allPlayers[otherPlayer].name).toUpperCase();
+      looser = (allPlayers[player].name).toUpperCase();
+      winnerImg.setAttribute('src', winnerImg.getAttribute('data-playerOne'));
+    }
+    //   $('#winnerImg').attr('src', $('#winnerImg').attr('data-playerTwo'));  }
+  let playerOneEndPosition = '#playerOne-' + allPlayers.playerOne.currentPosition; ????
+  let playerTwoEndPosition = '#playerTwo-' + allPlayers.playerTwo.currentPosition; ????
+  ы
+  goGame.setAttribute('data-gamestart', 'no');
+  containerMainGame.style.display = 'none';
+  playerOneEndPosition.style.display = 'none';
+  playerTwoEndPosition.style.display = 'none';
 
-// database.ref('highscores').limitToLast(1).on('child_added',function(snapshot){
-//   var p = $('<p>');
-//   var winnerScore = snapshot.val().name + ': ';
-//   winnerScore += snapshot.val().cash;
-//   p.innerHTML(winnerScore);
-//   $('#winnerScore').html(p);
-// });
-
-// database.ref('highscores').orderByChild('cash').limitToLast(10).on('child_added',function(snapshot){
-//   var p = $('<p>');
-//   var highScores = snapshot.val().name + ': ';
-//   highScores += snapshot.val().cash;
-//   p.innerHTML(highScores);
-//   $('#scores').prepend(p);
-// });
-
-// $(document).on('click','#modalButton',function(){
-//   var name = winner;
-//   var cash = allPlayers[otherPlayer].cash;
-
-//   console.log(name);
-//   console.log(cash);
-  
-//   database.ref('highscores').push({
-//       name: name,
-//       cash: cash
-//   })
-//   $('#highScoresModal').show();
-// })
-
-// $(document).on('click','#closeModal',function(){
-//   $('#highScoresModal').hide();
-// })
-
-// $(document).click(function(event) {
-//     if(event.target == $('#highScoresModal')){
-//         $('#highScoresModal').hide();
-//     }
-  
-// })
+  const showWinner = document.getElementById('winner');
+  const showLooser = document.getElementById('looser');
+  showWinner.innerHTML = winner;
+  showLooser.innerHTML = looser;
+  const containersEndGame = document.getElementsByClassName('containerEndGame');
+  for (let i = 0; i < containersEndGame.length; i++) {
+    containersEndGame.style.display = 'block';
+  }
+}
