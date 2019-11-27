@@ -112,28 +112,28 @@ var allProperties = {
       url: 'assets/images/prop-imgs/haightAshbury.jpg'
   },
   chance1 : {
-      name: "Chance! Take a chance card and follow the instructions.",
+      name: "Шанс! Возьми карту и следуй инструкциям.",
       price: 0,
       rent: 0,
       owner: '',
       url: 'assets/images/prop-imgs/chance.jpg'
   },
   chance2 : {
-      name: "Chance! Take a chance card and follow the instructions.",
+      name: "Шанс! Возьми карту и следуй инструкциям.",
       price: 0,
       rent: 0,
       owner: '',
       url: 'assets/images/prop-imgs/chance.jpg'
   },
   chance3 : {
-      name: "Chance! Take a chance card and follow the instructions.",
+      name: "Шанс! Возьми карту и следуй инструкциям.",
       price: 0,
       rent: 0,
       owner: '',
       url: 'assets/images/prop-imgs/chance.jpg'
   },
   chance4 : {
-      name: "Chance! Take a chance card and follow the instructions.",
+      name: "Шанс! Возьми карту и следуй инструкциям.",
       price: 0,
       rent: 0,
       owner: '',
@@ -227,53 +227,53 @@ var allProperties = {
 
   var chanceCard = [
   {
-     name: 'Parking Expired', 
-     action: 'Pay the meter.',
+     name: 'Просроченная парковка.', 
+     action: 'Оплатите штраф.',
      value: -20
   },
   {
-      name: 'Work perk: free catered meals!',
-      action: 'Save on lunch cost.',
+      name: 'Плюшки в работе: бесплатные ланчи!',
+      action: 'Экономьте на стоимости ланчей.',
       value: 100
   },
   {
-      name: 'BART is delayed.',
-      action: 'Take Uber instead.',
+      name: 'Ваш автомобиль сломался.',
+      action: 'Закажите UBER.',
       value: -30
   },
   {
-      name: 'Cross Golden Gate Bridge.',
-      action: 'Pay the bridge toll.',
+      name: 'Прогулка по Golden Gate Bridge.',
+      action: 'Заплатите за вход.',
       value: -50
   },
   {
-      name: 'Missed the Ferry.',
-      action: 'Stay the night in the city.',
+      name: 'Опоздание на паром.',
+      action: 'Оставайтесь на ночь в городе.',
       value: -250
   },
   {
-      name: 'Take second job to afford rent.',
-      action: 'Pay day!',
+      name: 'Получение второй работы для оплаты аренды дома.',
+      action: 'Получи зарплату!',
       value: 300
   },
   {
-      name: 'Giants Game today!',
-      action: 'Tailgate at AT&T Park.',
+      name: 'Большая Игра сегодня!',
+      action: 'Погуляй по AT&T Park.',
       value: -100
   },
   {
-      name: 'Ride bike on commute.',
-      action: 'Save money on gas.',
+      name: 'Проезд на общественном транспорте.',
+      action: 'Сэкономь на бензине.',
       value: 80
   },
   {
-      name: 'Sightseeing at Pier 39',
-      action: 'Buy souvenirs.',
+      name: 'Экскурсия по городу',
+      action: 'Купи сувениры.',
       value: -150
   },
   {
-      name: 'Go Organic.',
-      action: 'Buy whole organic foods only.',
+      name: 'Поход в магазин здорового питания.',
+      action: 'Купи продуктов и береги здоровье!',
       value: -200
   }
   ];
