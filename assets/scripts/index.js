@@ -31,8 +31,8 @@ const honkAudio = document.getElementById("audioHonk");
 var allProperties = {
   go : {
       name: "GO!",
-      action: "Pass go...",
-      value: "collect $200!!",
+      action: "Проходи...",
+      value: "Получи $200!!",
       price: 200,
       rent: 0,
       owner: '',
@@ -71,9 +71,9 @@ var allProperties = {
       url: 'assets/images/prop-imgs/nobHill.jpg'
   },
   oneWayStreet : {
-      name: "Wrong way!",
+      name: "Неправильное направление!",
       action: "One Way Street", 
-      value: "Pay fine of $100",
+      value: "Заплати штраф $100",
       price: -100,
       rent: 0,
       owner: '',
@@ -173,7 +173,7 @@ var allProperties = {
   },
   fog : {
       name: "Lost in the fog",
-      action: "Lose one turn",
+      action: "Пропусти ход",
       value: "",
       price: 0,
       rent: 0,
@@ -182,8 +182,8 @@ var allProperties = {
   },
   jail : {
       name: "Busted!",
-      action: "Double parked",
-      value: "Pay fine of $80",
+      action: "Парковка в неразрешенном месте",
+      value: "Оплати штраф $80",
       price: -80,
       rent: 0,
       owner: '',
