@@ -16,7 +16,7 @@ let playerOneClickFlag = false;
 let playerTwoClickFlag = false;
 let otherPlayer;
 let winner;
-let looser;
+let loser;
 const diceAudio = document.getElementById("audioDice");
 const fogAudio = document.getElementById("audioFog");
 const jailAudio = document.getElementById("audioJail");
@@ -817,7 +817,7 @@ function switchPlayer (player, value) {
       }
       
   }
-  else if (player == 'playerTwo') {
+  else if (player === 'playerTwo') {
       if (allPlayers.playerOne.missTurn === true) {
           allPlayers.playerTwo.turn = true;
           allPlayers.playerOne.turn = value;
@@ -830,11 +830,11 @@ function switchPlayer (player, value) {
       
   }
 
-  if(allPlayers.playerOne.turn === true) {
+  if (allPlayers.playerOne.turn) {
       document.getElementById('playerOneGameDie').style.display = 'block';
       document.getElementById('playerOneGameDieImage').style.display = 'block';
   }
-  else if(allPlayers.playerTwo.turn === true) {
+  else if (allPlayers.playerTwo.turn) {
     document.getElementById('playerTwoGameDie').style.display = 'block';
     document.getElementById('playerTwoGameDieImage').style.display = 'block';
   }
@@ -846,28 +846,23 @@ function gameOver (player) {
   if (player === "playerOne") {
       otherPlayer = "playerTwo";
       winner = (allPlayers[otherPlayer].name).toUpperCase();
-      lo0ser = (allPlayers[player].name).toUpperCase();
+      loser = (allPlayers[player].name).toUpperCase();
       const winnerImg = document.getElementById('winnerImg');
       winnerImg.setAttribute('src', winnerImg.getAttribute('data-playerTwo'));
   } else {
       otherPlayer = "playerOne";
       winner = (allPlayers[otherPlayer].name).toUpperCase();
-      looser = (allPlayers[player].name).toUpperCase();
+      loser = (allPlayers[player].name).toUpperCase();
       winnerImg.setAttribute('src', winnerImg.getAttribute('data-playerOne'));
     }
-    //   $('#winnerImg').attr('src', $('#winnerImg').attr('data-playerTwo'));  }
-  let playerOneEndPosition = '#playerOne-' + allPlayers.playerOne.currentPosition; ????
-  let playerTwoEndPosition = '#playerTwo-' + allPlayers.playerTwo.currentPosition; ????
-  ы
+
   goGame.setAttribute('data-gamestart', 'no');
   containerMainGame.style.display = 'none';
-  playerOneEndPosition.style.display = 'none';
-  playerTwoEndPosition.style.display = 'none';
 
   const showWinner = document.getElementById('winner');
-  const showLooser = document.getElementById('looser');
+  const showLoser = document.getElementById('loser');
   showWinner.innerHTML = winner;
-  showLooser.innerHTML = looser;
+  showLoser.innerHTML = loser;
   const containersEndGame = document.getElementsByClassName('containerEndGame');
   for (let i = 0; i < containersEndGame.length; i++) {
     containersEndGame.style.display = 'block';
