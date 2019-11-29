@@ -539,7 +539,7 @@ function playerEvent(player, property) {
           interactionElementID.style.display = 'block';
       }
       //if Property is already owned
-      else{
+      else {
           if (allProperties[currentProperty].owner === player) {
               interactionImageID.style.display = 'none';
               interactionYesButton.style.display = 'none';
@@ -549,13 +549,13 @@ function playerEvent(player, property) {
               interactionChanceAction.style.display = 'none';
               interactionChanceAmount.style.display = 'none';
               interactionContinueButton.style.display = 'none';
-              interactionNoButton.innerHTML = 'Continue';
+              interactionNoButton.innerHTML = 'Продолжить';
               interactionNoButton.classList.remove('btn-danger');
               interactionNoButton.classList.add('btn-warning');
               interactionNoButton.style.cssText = 'width: 90px; margin-left: 30%';
-              interactionPropertyText.innerHTML = 'You own '+ allProperties[currentProperty].name + '.';
+              interactionPropertyText.innerHTML = 'Ты теряешь '+ allProperties[currentProperty].name + '.';
               interactionPropertyText.style.display = 'block';
-              interactionRentText.innerHTML = 'No rent due';
+              interactionRentText.innerHTML = 'Без арендной платы';
               interactionRentText.style.display = 'block';
               interactionRent.style.display = 'block';
               interactionNoButton.style.display = 'block'; //USE No button
@@ -565,7 +565,7 @@ function playerEvent(player, property) {
               if (eval(ownedProperty).indexOf(currentProperty) >= 0 && eval(ownedProperty).indexOf(allProperties[currentProperty].pair) >= 0) {
                 rentOwed = allProperties[currentProperty].rent + ((allProperties[currentProperty].rent)*.5);
               }
-              else{
+              else {
                 rentOwed = allProperties[currentProperty].rent;
               }
               interactionImageID.style.display = 'none';
@@ -576,12 +576,12 @@ function playerEvent(player, property) {
               interactionChanceName.style.display = 'none';
               interactionChanceAction.style.display = 'none';
               interactionChanceAmount.style.display = 'none';
-              interactionProperty.innerHTML = allProperties[property].name + ' is owned by the other player. $';
+              interactionProperty.innerHTML = allProperties[property].name + ' принадлежит другому игроку. $';
               interactionProperty.style.display = 'block';
-              interactionRent.innerHTML = rentOwed + ' rent is due.';
+              interactionRent.innerHTML = rentOwed + 'аренды.';
               interactionRent.style.display = 'block';
               interactionRent.style.display = 'block';
-              interactionContinueButton.innerHTML = 'Pay Rent';
+              interactionContinueButton.innerHTML = 'Оплати аренду';
               interactionContinueButton.style.display = 'block';
               interactionElementID.style.display = 'block';
           }
@@ -610,7 +610,7 @@ function playerEvent(player, property) {
           interactionChanceName.innerHTML = allProperties[property].name;
           interactionChanceAction.innerHTML = allProperties[property].action;
           interactionChanceAmount.innerHTML = allProperties[property].value;
-          interactionContinueButton.innerHTML = 'Continue';
+          interactionContinueButton.innerHTML = 'Продолжить';
           interactionChanceName.style.display = 'block';
           interactionChanceAction.style.display = 'block';
           interactionChanceAmount.style.display = 'block';
@@ -633,12 +633,12 @@ function playerEvent(player, property) {
           interactionChanceAction.innerHTML = chanceCard[ranChanceCard].action;
 
           if (chanceCard[ranChanceCard].value < 0){
-              interactionChanceAmount.innerHTML = 'You owe $' + ((chanceCard[ranChanceCard].value)*-1);
+              interactionChanceAmount.innerHTML = 'Ты теряешь $' + ((chanceCard[ranChanceCard].value)*-1);
           }
           else {
-              interactionChanceAmount.innerHTML = 'You get $' + chanceCard[ranChanceCard].value;
+              interactionChanceAmount.innerHTML = 'Ты получаешь $' + chanceCard[ranChanceCard].value;
           }
-          interactionContinueButton.innerHTML = 'Continue';
+          interactionContinueButton.innerHTML = 'Продолжить';
           interactionChanceName.style.display = 'block';
           interactionChanceAction.style.display = 'block';
           interactionChanceAmount.style.display = 'block';
@@ -669,11 +669,11 @@ for (let i = 0; i < interactionYesButtons.length; i++) {
         interactionYesButton.style.display = 'none';
         interactionRent.style.display = 'none';
         interactionBuy.style.display = 'none';
-        interactionAlert.innerHTML = 'Unfortunately, you do not have enough money to buy ' + allProperties[currentProperty].name;
+        interactionAlert.innerHTML = 'К сожалению, у Вас недостаточно денег для покупки ' + allProperties[currentProperty].name;
         interactionContinueButton.style.display = 'none';
         interactionBuy.style.display = 'none';
         interactionImageID.style.display = 'none';
-        interactionNoButton.innerHTML = 'Continue';
+        interactionNoButton.innerHTML = 'Продолжить';
         interactionNoButton.classList.remove('btn-danger');
         interactionNoButton.classList.add('btn-warning');
         interactionNoButton.style.cssText = 'width: 90px; margin-left: 30%';
