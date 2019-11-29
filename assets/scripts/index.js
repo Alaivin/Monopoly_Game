@@ -26,6 +26,33 @@ const buyAudio = document.getElementById("audioBuy");
 const noMoneyAudio = document.getElementById("audioNoMoney");
 const honkAudio = document.getElementById("audioHonk");
 
+// handling winners score
+
+if (!localStorage.getItem('storageScore')) {
+  const storageScore = {
+    Kate: 840,
+    Mike: 900
+  }
+  localStorage.setItem('storageScore', JSON.stringify(storageScore));
+}
+
+const updateStorageScore = (playerName, score) => {
+  const storageScore = JSON.parse(localStorage.getItem('storageScore'));
+  storageScore.playerName = score;
+  localStorage.setItem('storageScore', storageScore);
+};
+
+const showScoreResults = () => {
+  const winnersContainer = document.getElementById('winnersContainer');
+  const storageScore = JSON.parse(localStorage.getItem('storageScore'));
+  for (let key in storageScore) {
+      const p = document.createElement('p');
+      p.innerHTML = key + '   ' + storageScore[key];
+      winnersContainer.append(p);
+  }
+}
+showScoreResults();
+
 // objects for each property
 
 var allProperties = {
@@ -849,11 +876,13 @@ function gameOver (player) {
       loser = (allPlayers[player].name).toUpperCase();
       const winnerImg = document.getElementById('winnerImg');
       winnerImg.setAttribute('src', winnerImg.getAttribute('data-playerTwo'));
+      updateStorageScore(winner, allPlayers.playerTwo.cash);
   } else {
       otherPlayer = "playerOne";
       winner = (allPlayers[otherPlayer].name).toUpperCase();
       loser = (allPlayers[player].name).toUpperCase();
       winnerImg.setAttribute('src', winnerImg.getAttribute('data-playerOne'));
+      updateStorageScore(winner, allPlayers.playerOne.cash);
     }
 
   goGame.setAttribute('data-gamestart', 'no');
