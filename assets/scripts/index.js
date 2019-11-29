@@ -250,7 +250,7 @@ var allProperties = {
   }
   };
 
-  // Object  for chance cards
+  // Object for chance cards
 
   var chanceCard = [
   {
@@ -430,7 +430,9 @@ function displayPlayerPiece(player, property, display, playerPositionCounter) {
 
   position = player + "-" + property;
 
-  if(startMove === playerPositionCounter) {
+// Show tokens on card after die rolls
+
+  if (startMove === playerPositionCounter) {
       clearInterval(hideInterval);
       clearInterval(showInterval);
       display = 'show';
@@ -451,7 +453,7 @@ function displayPlayerPiece(player, property, display, playerPositionCounter) {
 // Game Start - Player1 rolls dice
 
   playerOneGameDieImage.addEventListener('click', () => {
-  if(playerOneClickFlag) return;
+  if (playerOneClickFlag) return;
   
   allPlayers.playerTwo.turn = 'false';
   allPlayers.playerOne.turn = 'true';
@@ -463,10 +465,8 @@ function displayPlayerPiece(player, property, display, playerPositionCounter) {
   diceAudio.play();
   playerOneGameDieImage.setAttribute('src', `assets/images/dice/${startDieOne}.png`);
   playerOneGameDieImage.classList.add('die');
-  // displayPlayerPiece('player1',boardPosition[playerOnePositionCounter],'hide');
   playerOnePositionCounter = playerOnePositionCounter + startDieOne; //startDieOne;
   allPlayers.playerOne.currentPosition = boardPosition[playerOnePositionCounter];
-  // displayPlayerPiece('player1',boardPosition[playerOnePositionCounter],'show');
 
   hideInterval = setInterval(function() {
     displayPlayerPiece('playerOne', boardPosition[startMove], 'hide', playerOnePositionCounter);
@@ -491,20 +491,21 @@ playerTwoGameDieImage.addEventListener('click', () => {
   diceAudio.play();
   playerTwoGameDieImage.setAttribute('src', `assets/images/dice/${startDieTwo}.png`);
   playerTwoGameDieImage.classList.add('die');
-  // displayPlayerPiece('player2',boardPosition[playerTwoPositionCounter],'hide');
   playerTwoPositionCounter = playerTwoPositionCounter + startDieTwo; //startDieTwo;
   allPlayers.playerTwo.currentPosition = boardPosition[playerTwoPositionCounter];
-  // displayPlayerPiece('player2',boardPosition[playerTwoPositionCounter],'show');
 
-  hideInterval = setInterval(function(){displayPlayerPiece('playerTwo',boardPosition[startMove],'hide',playerTwoPositionCounter);},800);
-  showInterval = setInterval(function(){displayPlayerPiece('playerTwo',boardPosition[startMove+1],'show',playerTwoPositionCounter);},1000);
+  hideInterval = setInterval(function() {
+    displayPlayerPiece('playerTwo', boardPosition[startMove], 'hide', playerTwoPositionCounter);
+  }, 800);
+  showInterval = setInterval(function() {
+    displayPlayerPiece('playerTwo', boardPosition[startMove+1],'show', playerTwoPositionCounter);
+  }, 1000);
   playerTwoClickFlag = true;
 })
 
 //Display the appropriate content in the dynamic player event window for player to take action
-function playerEvent(player, property) {
-  // $(document).on('click','#playerOneGameDieImage');
-  // $(document).on('click','#playerTwoGameDieImage');
+
+function playerEvent (player, property) {
   playerOneClickFlag = false;
   playerTwoClickFlag = false;
 
@@ -590,7 +591,7 @@ function playerEvent(player, property) {
           }
           else {
               if (eval(ownedProperty).indexOf(currentProperty) >= 0 && eval(ownedProperty).indexOf(allProperties[currentProperty].pair) >= 0) {
-                rentOwed = allProperties[currentProperty].rent + ((allProperties[currentProperty].rent)*.5);
+                rentOwed = allProperties[currentProperty].rent + ((allProperties[currentProperty].rent) * 0.5);
               }
               else {
                 rentOwed = allProperties[currentProperty].rent;
@@ -660,7 +661,7 @@ function playerEvent(player, property) {
           interactionChanceAction.innerHTML = chanceCard[ranChanceCard].action;
 
           if (chanceCard[ranChanceCard].value < 0){
-              interactionChanceAmount.innerHTML = 'Ты теряешь $' + ((chanceCard[ranChanceCard].value)*-1);
+              interactionChanceAmount.innerHTML = 'Ты теряешь $' + ((chanceCard[ranChanceCard].value) * -1);
           }
           else {
               interactionChanceAmount.innerHTML = 'Ты получаешь $' + chanceCard[ranChanceCard].value;
@@ -681,7 +682,6 @@ let interactionYesButtons = document.getElementsByClassName('interactionYesButto
 for (let i = 0; i < interactionYesButtons.length; i++) {
   interactionYesButtons[i].addEventListener('click', function(event) {
     let noMoneycounter;
-  
     if (this.getAttribute('data-player') === "one") {
       player = "playerOne";
     } else {
@@ -712,7 +712,7 @@ for (let i = 0; i < interactionYesButtons.length; i++) {
     else {
         buyAudio.play();
         allProperties[currentProperty].owner = player;
-        allPlayers[player].cash = (allPlayers[player].cash)-(allProperties[currentProperty].price); 
+        allPlayers[player].cash = (allPlayers[player].cash) - (allProperties[currentProperty].price); 
         document.getElementById(player + 'GameCash').innerHTML = allPlayers[player].cash;
 
         const isPlayerOne = this.getAttribute('data-player') === "one";
@@ -726,11 +726,9 @@ for (let i = 0; i < interactionYesButtons.length; i++) {
         image.setAttribute('src', url);
         image.setAttribute('title',allProperties[currentProperty].name);
         playerOwnedProperties.append(image);
-
   
       let playerInteractionModule = document.getElementById(player+'-interactions');
       playerInteractionModule.style.display = 'none';
-
       switchPlayer(player, 'false');
     }
   })
@@ -748,7 +746,6 @@ for (let i = 0; i < interactionNoButtons.length; i++) {
     }
     let playerInteractionModule = document.getElementById(player + '-interactions');
     playerInteractionModule.style.display = 'none';
-  
     switchPlayer(player, 'false')
   })
 }
@@ -765,39 +762,39 @@ for (let i = 0; i < interactionContinueButtons.length; i++) {
   
   // Corner Squares
   if (currentProperty === "oneWayStreet" || currentProperty === "fog" || currentProperty === "jail" || currentProperty === "go") {
-      if( currentProperty === "fog"){
+      if ( currentProperty === "fog") {
           allPlayers[player].missTurn = true;
       }
-      else if (currentProperty === 'go'){
+      else if (currentProperty === 'go') {
             const updatedCash = allPlayers[player].cash + 200
             allPlayers[player].cash = updatedCash;
             gameCashDiv.innerHTML = updatedCash;
       }
-      else if (currentProperty === "oneWayStreet"){
-            if ((allPlayers[player].cash - 100) < 0){
+      else if (currentProperty === "oneWayStreet") {
+            if ((allPlayers[player].cash - 100) < 0) {
               allPlayers[player].cash = 0;
               gameOver(player);
           }
-          else{
+          else {
               allPlayers[player].cash = (allPlayers[player].cash) - 100;
                 gameCashDiv.innerHTML = allPlayers[player].cash;
           }            
       }
-      else if (currentProperty === "jail"){
-            if((allPlayers[player].cash - 80) < 0){
+      else if (currentProperty === "jail") {
+            if ((allPlayers[player].cash - 80) < 0) {
               allPlayers[player].cash = 0;
               gameOver(player);
           }
-          else{
+          else {
                 allPlayers[player].cash = allPlayers[player].cash - 80;
                 gameCashDiv.innerHTML = allPlayers[player].cash;
           }            
       }
   }
   //IF Chance Card and ELSE Rent due
-  else{
+  else {
       if (allProperties[currentProperty].owner == '') {
-          if((allPlayers[player].cash) + (chanceCard[ranChanceCard].value) < 0) {
+          if ((allPlayers[player].cash) + (chanceCard[ranChanceCard].value) < 0) {
               allPlayers[player].cash = 0;
               // alert(player+' Losses');
               gameOver(player);
@@ -808,8 +805,8 @@ for (let i = 0; i < interactionContinueButtons.length; i++) {
           }
           
       }
-      else{
-          if((allPlayers[player].cash) - (rentOwed) < 0){
+      else {
+          if ((allPlayers[player].cash) - (rentOwed) < 0) {
               allPlayers[player].cash = 0;
               gameOver(player);
           }
@@ -833,12 +830,12 @@ for (let i = 0; i < interactionContinueButtons.length; i++) {
 //switch turns, miss a turn
 function switchPlayer (player, value) {
   if (player == 'playerOne') {
-      if(allPlayers.playerTwo.missTurn == true) {
+      if (allPlayers.playerTwo.missTurn == true) {
           allPlayers.playerOne.turn = true;
           allPlayers.playerTwo.turn = value;
           allPlayers.playerTwo.missTurn = false;
       }
-      else{
+      else {
           allPlayers.playerOne.turn = value;
           allPlayers.playerTwo.turn = true;
       }
@@ -869,14 +866,14 @@ function switchPlayer (player, value) {
 
 // Game over page displays
 
-function gameOver (player) {
+function gameOver (player) { // loser
   if (player === "playerOne") {
       otherPlayer = "playerTwo";
       winner = (allPlayers[otherPlayer].name).toUpperCase();
       loser = (allPlayers[player].name).toUpperCase();
       const winnerImg = document.getElementById('winnerImg');
       winnerImg.setAttribute('src', winnerImg.getAttribute('data-playerTwo'));
-      updateStorageScore(winner, allPlayers.playerTwo.cash);
+      updateStorageScore(winner, allPlayers.playerTwo.cash); // add a winner data to Local Storage
   } else {
       otherPlayer = "playerOne";
       winner = (allPlayers[otherPlayer].name).toUpperCase();
