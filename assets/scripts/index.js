@@ -832,11 +832,11 @@ function switchPlayer (player, value) {
 
   if (allPlayers.playerOne.turn === true) {
       document.getElementById('playerOneGameDie').style.display = 'block';
-      document.getElementById('playerOneGameDieImage').style.display = 'block';
+      document.getElementById('playerOneGameDieImage').style.display = 'inline-block';
   }
   else if (allPlayers.playerTwo.turn === true) {
     document.getElementById('playerTwoGameDie').style.display = 'block';
-    document.getElementById('playerTwoGameDieImage').style.display = 'block';
+    document.getElementById('playerTwoGameDieImage').style.display = 'inline-block';
   }
 }
 
